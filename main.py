@@ -1,6 +1,10 @@
 from figures import *
 from PIL import Image
 
+"""
+PURELY FOR TESTING PURPOSES.
+"""
+
 img_width, img_height = 1000, 1000
 
 image = Image.new('RGB', (img_width, img_height))
