@@ -4,12 +4,6 @@ All possible figures
 
 from PIL import ImageDraw
 
-"""
-TO DO:
-
-Draw polygon for a filled diamond.
-"""
-
 
 class Figures:
 
@@ -40,7 +34,7 @@ class Figures:
             raise ValueError("filled should be a bool.")
 
         if not isinstance(start_xy, tuple) or not isinstance(size, tuple):
-            raise ValueError("start_xy and dimensions should both be bools.")
+            raise ValueError("start_xy and dimensions should both be tuples.")
 
         if filled:
             fill = (255, 255, 255)
