@@ -57,7 +57,7 @@ class Figures:
         )
 
 
-    def draw_diamond(self, center_xy: tuple, size: int):
+    def __draw_diamond_line(self, center_xy: tuple, size: int):
         """
             Draw a diamond on the image using the specified center coordinates and size.
 
@@ -78,7 +78,7 @@ class Figures:
             raise ValueError("filled should be a bool.")
 
         if not isinstance(size, int):
-            raise ValueError("start_xy and dimensions should both be bools.")
+            raise ValueError("size should be an int.")
 
 
         size = size / 2
@@ -96,6 +96,53 @@ class Figures:
         ]
 
         self.draw.line(points + [points[0]], fill=fill, width=width)
+
+
+    def __draw_diamond_filled(self, center_xy: tuple, size: int):
+        """
+            Draw a filled diamond on the image using the specified center coordinates and size.
+
+            Parameters:
+            - center_xy (tuple): A tuple containing the (x, y) coordinates of the center of the diamond.
+            - size (int): The size of the diamond (distance from the center to each vertex).
+
+            Raises:
+            - ValueError: If 'center_xy' is not a tuple, or if 'size' is not an integer.
+
+             Note:
+            - The diamond is defined by its four vertices: top, right, bottom, and left.
+            - The 'fill' parameter specifies the RGB color values for filling the diamond, and 'outline' is set to None for a filled shape.
+            - The 'width' parameter is set to 0, as width is not applicable for filled shapes.
+
+        """
+
+        if not isinstance(center_xy, tuple):
+            raise ValueError("filled should be a bool.")
+
+        if not isinstance(size, int):
+            raise ValueError("size should be an int.")
+
+        size = size / 2
+
+        x, y = center_xy
+
+        points = [
+            (x, y - size),  # Top vertex
+            (x + size, y),  # Right vertex
+            (x, y + size),  # Bottom vertex
+            (x - size, y),  # Left vertex
+        ]
+
+        fill = (255, 255, 255)
+
+        self.draw.polygon(points, fill=fill, outline=None, width=0)
+
+
+    def draw_diamond(self, filled: bool, center_xy: tuple, size: int):
+        if filled:
+            self.__draw_diamond_filled(center_xy=center_xy, size=size)
+        else:
+            self.__draw_diamond_line(center_xy=center_xy, size=size)
 
 
     def draw_circle(self, filled: bool, center_xy: tuple, size: int):
@@ -137,3 +184,6 @@ class Figures:
         bounding_box = [(x - radius, y - radius), (x + radius, y + radius)]
 
         self.draw.ellipse(bounding_box, fill=fill, outline=outline, width=width)
+
+
+
