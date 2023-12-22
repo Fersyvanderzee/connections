@@ -1,21 +1,31 @@
-from figures import *
+from shape import *
 from PIL import Image
+import random
 
 """
+
 PURELY FOR TESTING PURPOSES.
+
 """
 
-img_width, img_height = 1000, 1000
+img_width, img_height = 3000, 3000
+margin = 100
 
-image = Image.new('RGB', (img_width, img_height))
+bg_color = (185, 32, 39)
+
+image = Image.new(mode='RGB', size=(img_width, img_height), color=bg_color)
+
+for j in range(5):
+    for i in range(1000):
+        filled = random.choice([True, False])
+        center_xy = (
+            random.randint(margin, img_height - margin),
+            random.randint(margin, img_height - margin)
+        )
+
+        size = random.randint(15, 60)
+
+        Diamond(image=image, filled=filled, center_xy=center_xy, size=size)
 
 
-fig = Figures(line_w_big=5, line_w_small=2, image=image)
-
-
-fig.draw_diamond(center_xy=(img_width/2, img_height/2), size=100, filled=False)
-fig.draw_rectangle(filled=True, start_xy=(200, 200), size=(100, 200))
-fig.draw_circle(filled=False, center_xy=(700, 700), size=100)
-
-image.show()
-
+    image.show()
