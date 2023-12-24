@@ -11,8 +11,9 @@ class Shape:
     """
 
     COLOR = (220, 220, 220)
-    SMALL_LINE_WIDTH = 5
-    BIG_LINE_WIDTH = 8
+    BG_COLOR = (185, 32, 39)
+    SMALL_LINE_WIDTH = 1
+    BIG_LINE_WIDTH = 2
     BOUNDING_BOX = ()
 
     def __init__(self, image: Image.Image):
@@ -106,7 +107,7 @@ class Rectangle(Shape):
             outline = None
             width = 0
         else:
-            fill = None
+            fill = self.BG_COLOR
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
@@ -150,7 +151,7 @@ class Circle(Shape):
             outline = None
             width = 0
         else:
-            fill = None
+            fill = self.BG_COLOR
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
@@ -195,7 +196,7 @@ class Diamond(Shape):
             outline = None
             width = 0
         else:
-            fill = None
+            fill = self.BG_COLOR
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
