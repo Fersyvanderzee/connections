@@ -17,29 +17,40 @@ class Entity:
     SIZE_RANGE_A = 10
     SIZE_RANGE_B = 30
 
-    def __init__(self, image, start_xy: tuple, is_up: bool):
+    def __init__(self, image, spawn_area: list[tuple, tuple], is_up: bool):
         self.image = image
-        self.COORDS = [start_xy]
 
-        x = start_xy[0]
+        random_pos = (
+            random.randint(spawn_area[0][0], spawn_area[1][0]),
+            random.randint(spawn_area[0][1], spawn_area[1][1])
+        )
+        self.COORDS = [random_pos]
+
+        x = random_pos[0]
 
         iterations = random.randint(1, 5)
 
-        for i in range(iterations):
-            current_coord = self.COORDS[i]
-            y = current_coord[1]
-            new_coord = self.generate_coord(y=y, is_up=is_up)
-            if 100 < new_coord < 3000:
-                self.COORDS.append((x, new_coord))
+        try:
+            for i in range(iterations):
+                current_coord = self.COORDS[i]
+                y = current_coord[1]
+                new_coord = self.generate_coord(y=y, is_up=is_up)
+                if 100 < new_coord < 3000:
+                    self.COORDS.append((x, new_coord))
 
-        size_arr = len(self.COORDS)
+            size_arr = len(self.COORDS)
 
-        for i in range(size_arr):
-            if i < len(self.COORDS) - 1 and size_arr > 1:
-                Line(image=self.image, start_xy=self.COORDS[i], end_xy=self.COORDS[i+1], main_line=False)
+            for i in range(size_arr):
+                if i < size_arr - 1 and size_arr > 1:
+                    Line(image=self.image, start_xy=self.COORDS[i], end_xy=self.COORDS[i+1], main_line=False)
 
-            start_shape = self.choose_shape()
-            self.draw_shape(shape_name=start_shape, xy=self.COORDS[i])
+                start_shape = self.choose_shape()
+                if i < size_arr - 1 or random.choice([True, False]):
+                    self.draw_shape(shape_name=start_shape, xy=self.COORDS[i])
+
+        except IndexError:
+            pass
+
 
     @staticmethod
     def choose_shape():
@@ -73,8 +84,8 @@ class Entity:
                 Diamond(image=self.image, filled=filled, center_xy=xy, size=size)
                 return size
 
-    def generate_coord(self, y: int, is_up: bool):
 
+    def generate_coord(self, y: int, is_up: bool):
         length = random.randint(self.SIZE_RANGE_A, self.SIZE_RANGE_B) * 5
 
         if is_up:
