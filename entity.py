@@ -17,8 +17,9 @@ class Entity:
     SIZE_RANGE_A = 10
     SIZE_RANGE_B = 30
 
-    def __init__(self, image, spawn_area: list[tuple, tuple], is_up: bool):
+    def __init__(self, image, spawn_area: list, is_up: bool, color):
         self.image = image
+        self.color = color
 
         random_pos = (
             random.randint(spawn_area[0][0], spawn_area[1][0]),
@@ -42,7 +43,7 @@ class Entity:
 
             for i in range(size_arr):
                 if i < size_arr - 1 and size_arr > 1:
-                    Line(image=self.image, start_xy=self.COORDS[i], end_xy=self.COORDS[i+1], main_line=False)
+                    Line(image=self.image, start_xy=self.COORDS[i], end_xy=self.COORDS[i+1], main_line=False, color=self.color)
 
                 start_shape = self.choose_shape()
                 if i < size_arr - 1 or random.choice([True, False]):
@@ -71,17 +72,17 @@ class Entity:
                     random.randint(self.SIZE_RANGE_A, self.SIZE_RANGE_B),
                     random.randint(self.SIZE_RANGE_A, self.SIZE_RANGE_B)
                 )
-                Rectangle(image=self.image, filled=filled, center_xy=xy, size=size)
+                Rectangle(image=self.image, filled=filled, center_xy=xy, size=size, color=self.color)
                 return size[1]
 
             case 'Circle':
                 size = random.randint(self.SIZE_RANGE_A, self.SIZE_RANGE_B)
-                Circle(image=self.image, filled=filled, center_xy=xy, size=size)
+                Circle(image=self.image, filled=filled, center_xy=xy, size=size, color=self.color)
                 return size
 
             case 'Diamond':
                 size = random.randint(self.SIZE_RANGE_A, self.SIZE_RANGE_B)
-                Diamond(image=self.image, filled=filled, center_xy=xy, size=size)
+                Diamond(image=self.image, filled=filled, center_xy=xy, size=size, color=self.color)
                 return size
 
 

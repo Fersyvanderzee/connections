@@ -11,12 +11,11 @@ class Shape:
     """
 
     COLOR = (220, 220, 220)
-    BG_COLOR = (185, 32, 39)
     SMALL_LINE_WIDTH = 1
     BIG_LINE_WIDTH = 2
     BOUNDING_BOX = ()
 
-    def __init__(self, image: Image.Image):
+    def __init__(self, image: Image.Image, color):
         """
         Initialize the Shape class.
 
@@ -26,6 +25,7 @@ class Shape:
         """
 
         self.draw = ImageDraw.Draw(image)
+        self.bg_color = color
 
     @classmethod
     def set_color(cls, color: tuple):
@@ -70,7 +70,7 @@ class Rectangle(Shape):
 
     """
 
-    def __init__(self, image: Image.Image, filled: bool, center_xy: tuple, size: tuple):
+    def __init__(self, image: Image.Image, color, filled: bool, center_xy: tuple, size: tuple):
         """
         Initialize the Rectangle class.
 
@@ -84,7 +84,7 @@ class Rectangle(Shape):
 
         """
 
-        super().__init__(image)
+        super().__init__(image, color)
         self.filled = filled
         self.size = size
         self.dimensions = (
@@ -107,7 +107,7 @@ class Rectangle(Shape):
             outline = None
             width = 0
         else:
-            fill = self.BG_COLOR
+            fill = self.bg_color
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
@@ -119,7 +119,7 @@ class Circle(Shape):
     Class for drawing circles on an image.
     """
 
-    def __init__(self, image: Image.Image, filled: bool, center_xy: tuple, size: int):
+    def __init__(self, image: Image.Image, color, filled: bool, center_xy: tuple, size: int):
         """
         Initialize the Circle class.
 
@@ -133,7 +133,7 @@ class Circle(Shape):
 
         """
 
-        super().__init__(image)
+        super().__init__(image, color)
         self.filled = filled
         self.radius = int(size / 2)
         self.center_xy = center_xy
@@ -151,7 +151,7 @@ class Circle(Shape):
             outline = None
             width = 0
         else:
-            fill = self.BG_COLOR
+            fill = self.bg_color
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
@@ -167,7 +167,7 @@ class Diamond(Shape):
 
     """
 
-    def __init__(self, image: Image.Image, filled: bool, center_xy: tuple, size: int):
+    def __init__(self, image: Image.Image, color, filled: bool, center_xy: tuple, size: int):
         """
         Initialize the Diamond class.
 
@@ -179,7 +179,7 @@ class Diamond(Shape):
 
         """
 
-        super().__init__(image)
+        super().__init__(image, color)
         self.filled = filled
         self.size = size / 2
         self.center_xy = center_xy
@@ -196,7 +196,7 @@ class Diamond(Shape):
             outline = None
             width = 0
         else:
-            fill = self.BG_COLOR
+            fill = self.bg_color
             outline = self.COLOR
             width = self.SMALL_LINE_WIDTH
 
@@ -212,8 +212,8 @@ class Diamond(Shape):
 
 
 class Line(Shape):
-    def __init__(self, image, start_xy: tuple, end_xy: tuple, main_line: bool = False):
-        super().__init__(image)
+    def __init__(self, image, color, start_xy: tuple, end_xy: tuple, main_line: bool = False):
+        super().__init__(image, color)
         self.start_xy = start_xy
         self.end_xy = end_xy
         self.main_line = main_line
