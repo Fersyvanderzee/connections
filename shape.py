@@ -232,3 +232,4 @@ class Line(Shape):
         width = self.BIG_LINE_WIDTH if self.main_line else self.SMALL_LINE_WIDTH
 
         self.draw.line(xy=(self.start_xy, self.end_xy), fill=self.COLOR, width=width)
+

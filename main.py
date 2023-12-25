@@ -24,7 +24,6 @@ for i in range(5):
 
     BaseLine(image, start_xy, 3)
 
-
 for j in range(10):
     for i in range(3):
 

@@ -56,3 +56,4 @@ class BaseLine:
 
     def draw_base_line(self, start_xy, end_xy):
         Line(image=self.image, start_xy=start_xy, end_xy=end_xy, main_line=True, color=self.line_color)
+

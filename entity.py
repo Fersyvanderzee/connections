@@ -96,5 +96,3 @@ class Entity:
 
         return new_y
 
-
-
